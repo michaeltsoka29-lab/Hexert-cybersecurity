@@ -5,6 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home | Hexert Cyber</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* OVERRIDE: Make the globe brighter and background darker for contrast */
+        #home-hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+            background: #05080f; /* Darker black/blue for contrast */
+        }
+        
+        #globe-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1; /* Bring it forward slightly */
+            opacity: 1; /* Full visibility */
+        }
+
+        /* Ensure text sits ON TOP of the bright globe */
+        .hero-content {
+            position: relative;
+            z-index: 2; /* Higher than canvas */
+            background: rgba(10, 15, 28, 0.4); /* Slight dark backdrop for text readability */
+            padding: 2rem;
+            border-radius: 20px;
+            backdrop-filter: blur(3px); /* Blurs the globe slightly behind text */
+        }
+    </style>
 </head>
 <body>
     
@@ -29,7 +62,7 @@
             <h1 class="animate-up delay-1" style="font-size: 4rem; font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem;">
                 Secure Your <span style="background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Digital World</span>
             </h1>
-            <p class="animate-up delay-2" style="font-size: 1.2rem; color: #9ca3af; margin-bottom: 2rem;">
+            <p class="animate-up delay-2" style="font-size: 1.2rem; color: #e5e7eb; margin-bottom: 2rem; font-weight: 500;">
                 "For the Lord gives wisdom; from his mouth come knowledge and understanding."
             </p>
             <div class="animate-up delay-3">
@@ -50,12 +83,12 @@
         let width, height;
         let particles = [];
         
-        // Settings
-        const particleCount = 450; // Number of dots
-        const globeRadius = 250;   // Size of the globe
-        const rotationSpeed = 0.002; // Speed of spin
+        // --- CONFIGURATION ---
+        const particleCount = 600;  // Increased from 450 to 600 for density
+        const globeRadius = 280;    // Slightly larger globe
+        const rotationSpeed = 0.003; // Faster spin
+        const connectionDistance = 45; // Distance to draw lines
 
-        // Resize Canvas
         function resize() {
             width = canvas.width = window.innerWidth;
             height = canvas.height = window.innerHeight;
@@ -63,70 +96,90 @@
         window.addEventListener('resize', resize);
         resize();
 
-        // Create Particles (Dots on a sphere)
+        // Initialize Particles
         for (let i = 0; i < particleCount; i++) {
-            // Random spherical coordinates
             const theta = Math.random() * 2 * Math.PI;
             const phi = Math.acos((Math.random() * 2) - 1);
-            
             particles.push({
                 theta, 
                 phi,
                 x: 0, y: 0, z: 0,
-                size: Math.random() * 2 + 1 // Random dot size
+                baseSize: Math.random() * 2.5 + 1.5 // Bigger dots
             });
         }
 
-        // Animation Loop
         function animate() {
             ctx.clearRect(0, 0, width, height);
             
-            // Center of screen
             const cx = width / 2;
             const cy = height / 2;
 
+            // 1. Calculate Positions
             particles.forEach(p => {
-                // Rotate the globe (change theta)
                 p.theta += rotationSpeed;
-
-                // Convert spherical to Cartesian (3D x,y,z)
                 p.x = globeRadius * Math.sin(p.phi) * Math.cos(p.theta);
                 p.y = globeRadius * Math.cos(p.phi);
                 p.z = globeRadius * Math.sin(p.phi) * Math.sin(p.theta) + globeRadius;
+            });
 
-                // Project 3D to 2D (Perspective)
-                const scale = 300 / (300 + p.z); // Depth factor
+            // 2. Draw Lines (The "Tech Mesh" Effect)
+            ctx.lineWidth = 0.4;
+            // Loop through particles to find neighbors
+            // Note: We skip some iterations for performance (step += 2)
+            for (let i = 0; i < particleCount; i += 1) {
+                const p1 = particles[i];
+                if (p1.z < 0) continue; // Don't draw lines on back of globe (optional)
+
+                // Perspective projection for P1
+                const scale1 = 350 / (350 + p1.z);
+                const x1 = cx + p1.x * scale1;
+                const y1 = cy + p1.y * scale1;
+
+                // Check neighbors
+                for (let j = i + 1; j < particleCount; j++) {
+                    const p2 = particles[j];
+                    const dist = Math.sqrt((p1.x-p2.x)**2 + (p1.y-p2.y)**2 + (p1.z-p2.z)**2);
+                    
+                    if (dist < connectionDistance) {
+                        const scale2 = 350 / (350 + p2.z);
+                        const x2 = cx + p2.x * scale2;
+                        const y2 = cy + p2.y * scale2;
+                        
+                        // Calculate alpha based on depth
+                        const alpha = (scale1 - 0.5) * 0.8; 
+
+                        if (alpha > 0) {
+                            ctx.strokeStyle = `rgba(0, 229, 255, ${alpha})`;
+                            ctx.beginPath();
+                            ctx.moveTo(x1, y1);
+                            ctx.lineTo(x2, y2);
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            // 3. Draw Dots (Glowing)
+            particles.forEach(p => {
+                const scale = 350 / (350 + p.z);
                 const x2d = cx + p.x * scale;
                 const y2d = cy + p.y * scale;
+                const alpha = (scale - 0.5) * 1.5;
 
-                // Draw the particle
-                // Only draw if it's in "front" (z > 0 relative to center somewhat) to simulate depth
-                // or just vary opacity based on depth
-                const alpha = (scale - 0.5) * 1.5; // Fades out dots in back
-                
                 if (alpha > 0) {
-                    ctx.fillStyle = `rgba(0, 229, 255, ${alpha})`; // Cyan color
+                    // Glow Effect
+                    ctx.shadowBlur = 10; 
+                    ctx.shadowColor = '#00e5ff';
+                    
+                    ctx.fillStyle = `rgba(0, 229, 255, ${alpha})`;
                     ctx.beginPath();
-                    ctx.arc(x2d, y2d, p.size * scale, 0, Math.PI * 2);
+                    ctx.arc(x2d, y2d, p.baseSize * scale, 0, Math.PI * 2);
                     ctx.fill();
+                    
+                    // Reset glow for lines (performance)
+                    ctx.shadowBlur = 0;
                 }
             });
-
-            // Connect nearby particles with lines (optional "Tech" web effect)
-            // Warning: This is CPU intensive. Uncomment if you want lines.
-            /*
-            particles.forEach((p1, i) => {
-                particles.slice(i + 1).forEach(p2 => {
-                    const dx = p1.x - p2.x;
-                    const dy = p1.y - p2.y;
-                    const dz = p1.z - p2.z;
-                    const dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
-                    if (dist < 40) {
-                         // Draw line code here
-                    }
-                });
-            });
-            */
 
             requestAnimationFrame(animate);
         }
