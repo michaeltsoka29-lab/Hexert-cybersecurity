@@ -4,7 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leadership | Hexert Cyber</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <style>
+        .founder-gradient {
+            background: radial-gradient(circle at top right, rgba(0, 229, 255, 0.1), transparent 60%),
+                        radial-gradient(circle at bottom left, rgba(112, 0, 255, 0.1), transparent 60%);
+        }
+        .leader-card {
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .leader-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(0, 229, 255, 0.1);
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -23,50 +40,65 @@
 
     <div class="page-header">
         <h1>Our Leadership</h1>
-        <p>Guided by vision, integrity, and faith.</p>
+        <p>Visionary protection guided by integrity and faith.</p>
     </div>
 
     <div class="container">
-        <div class="card" style="display: flex; gap: 2rem; align-items: center; margin-bottom: 4rem; flex-wrap: wrap;">
-            <div style="flex: 1; min-width: 250px;">
-                <h2 style="font-size: 2.5rem; margin-bottom: 0.5rem;">Lesley Tsoka</h2>
-                <span style="color: var(--primary); font-weight: 700; letter-spacing: 2px;">FOUNDER & CEO</span>
-                <p style="margin-top: 1.5rem; font-style: italic; color: #d1d5db;">
-                    "Lesley Tsoka is a pioneer in the cybersecurity landscape. His leadership style is defined by a relentless pursuit of excellence and a deep commitment to ethical protection. Under his stewardship, Hexert Cyber has grown from a concept into a fortress of digital safety."
+        <div class="card founder-gradient" style="padding: 4rem; margin-bottom: 5rem; display: flex; flex-wrap: wrap; gap: 50px; align-items: center; border-radius: 30px;">
+            <div style="flex: 1; min-width: 300px;">
+                <h6 style="color: var(--primary); text-transform: uppercase; letter-spacing: 3px; font-weight: 700; margin-bottom: 1rem;">Founder & CEO</h6>
+                <h2 style="font-size: 3rem; margin-bottom: 1.5rem;">Lesley Tsoka</h2>
+                <p style="font-size: 1.15rem; line-height: 1.8; color: #d1d5db; margin-bottom: 2rem;">
+                    A pioneer in the cybersecurity landscape, Lesley Tsoka founded Hexert Cyber with a single mission: to provide world-class digital defense built on the bedrock of ethical integrity. 
                 </p>
-                <div style="margin-top: 2rem; padding: 1rem; border-left: 3px solid var(--secondary); background: rgba(0,0,0,0.2);">
-                    <p>"With God as our shield, we fear no threat. Our mission is to protect the vulnerable."</p>
+                <div style="padding-left: 20px; border-left: 3px solid var(--primary); font-style: italic; color: #e5e7eb; margin-bottom: 2rem;">
+                    "Our strength comes from our technical expertise, but our direction comes from the wisdom of God. We don't just secure networks; we protect people's livelihoods and peace of mind."
+                </div>
+                <p style="font-family: 'Mrs Saint Delafield', cursive; font-size: 3.5rem; color: var(--primary); margin-bottom: 0;">Lesley Tsoka</p>
+            </div>
+            
+            <div style="flex: 0.8; min-width: 300px; display: flex; justify-content: center;">
+                <div style="width: 350px; height: 450px; background: #111827; border-radius: 20px; border: 1px solid rgba(0, 229, 255, 0.3); display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative;">
+                    <i class="fas fa-user-tie" style="font-size: 15rem; color: rgba(255,255,255,0.05);"></i>
+                    <p style="position: absolute; color: var(--primary); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px;">Profile Photo</p>
                 </div>
             </div>
         </div>
 
-        <h2 style="text-align: center; margin-bottom: 2rem;">The Hexert Team</h2>
+        <h2 style="text-align: center; margin-bottom: 3rem;">Executive Team</h2>
         <div class="grid-3">
-            <div class="card" style="text-align: center;">
-                <h3>Sarah Jenkins</h3>
-                <p>Chief Operations Officer</p>
+            <div class="card leader-card" style="text-align: center;">
+                <div style="width: 80px; height: 80px; background: rgba(112, 0, 255, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                    <i class="fas fa-shield-alt" style="color: var(--primary); font-size: 1.5rem;"></i>
+                </div>
+                <h3 style="margin-bottom: 5px;">Sarah Jenkins</h3>
+                <p style="color: var(--primary); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px;">Chief Operations Officer</p>
+                <p style="font-size: 0.9rem; color: var(--text-muted);">Overseeing daily defense operations and client success frameworks.</p>
             </div>
-            <div class="card" style="text-align: center;">
-                <h3>David Okafor</h3>
-                <p>Head of Red Teaming</p>
+
+            <div class="card leader-card" style="text-align: center;">
+                <div style="width: 80px; height: 80px; background: rgba(112, 0, 255, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                    <i class="fas fa-code" style="color: var(--primary); font-size: 1.5rem;"></i>
+                </div>
+                <h3 style="margin-bottom: 5px;">David Okafor</h3>
+                <p style="color: var(--primary); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px;">Head of Red Teaming</p>
+                <p style="font-size: 0.9rem; color: var(--text-muted);">Leading offensive security simulations to harden client defenses.</p>
             </div>
-            <div class="card" style="text-align: center;">
-                <h3>Elena Rodriguez</h3>
-                <p>Director of Forensics</p>
-            </div>
-            <div class="card" style="text-align: center;">
-                <h3>Michael Chen</h3>
-                <p>Lead Cloud Architect</p>
-            </div>
-            <div class="card" style="text-align: center;">
-                <h3>Priya Patel</h3>
-                <p>VP of Threat Intelligence</p>
+
+            <div class="card leader-card" style="text-align: center;">
+                <div style="width: 80px; height: 80px; background: rgba(112, 0, 255, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                    <i class="fas fa-microscope" style="color: var(--primary); font-size: 1.5rem;"></i>
+                </div>
+                <h3 style="margin-bottom: 5px;">Elena Rodriguez</h3>
+                <p style="color: var(--primary); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px;">Director of Forensics</p>
+                <p style="font-size: 0.9rem; color: var(--text-muted);">Specializing in incident analysis and data recovery excellence.</p>
             </div>
         </div>
     </div>
 
     <footer>
-        <p class="god-praise">Integrity in every action</p>
+        <p>&copy; 2025 Hexert Cyber. All Rights Reserved. By WACX Digital and &copy; Leetec Solutions </p>
+        <p class="god-praise">In God We Trust | Built for Excellence</p>
     </footer>
 </body>
 </html>
