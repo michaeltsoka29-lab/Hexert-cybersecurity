@@ -3,8 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page Name | Hexert Cyber</title>
+    <title>About Us | Hexert Cyber</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .faith-section {
+            background: linear-gradient(135deg, rgba(112, 0, 255, 0.1) 0%, rgba(0, 229, 255, 0.05) 100%);
+            padding: 4rem 2rem;
+            border-radius: 20px;
+            margin-top: 4rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+        .quote-box {
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+        .quote-box::before, .quote-box::after {
+            content: '"';
+            font-size: 3rem;
+            opacity: 0.3;
+            position: absolute;
+        }
+        .quote-box::before { left: -30px; top: -20px; }
+        .quote-box::after { right: -30px; bottom: -40px; }
+    </style>
 </head>
 <body>
     <header>
@@ -15,25 +42,67 @@
                 <a href="services.html">Services</a>
                 <a href="features.html">Features</a>
                 <a href="leadership.html">Leadership</a>
-                <a href="about.html">About</a>
+                <a href="about.html" class="active">About</a>
                 <a href="contact.html">Contact</a>
             </nav>
         </div>
     </header>
 
     <div class="page-header">
-        <h1>Page Title Here</h1>
+        <h1>About Hexert</h1>
+        <p>A Shield Forged in Excellence and Guided by Faith.</p>
     </div>
 
     <div class="container">
-        <div class="card">
-            <h3>Content Header</h3>
-            <p>Your content goes here...</p>
+        <div class="card" style="margin-bottom: 3rem; border-left: 4px solid var(--primary); padding: 3rem;">
+            <h2 style="color: var(--primary); margin-bottom: 1.5rem; font-size: 2rem;">Our Foundation</h2>
+            <p style="font-size: 1.2rem; line-height: 1.8; color: #e5e7eb;">
+                Hexert is a cybersecurity solutions company founded by <strong>Lesley Tsoka</strong>, 
+                dedicated to protecting businesses and individuals in the digital world. With God’s guidance, 
+                we provide cutting-edge cybersecurity services, from threat detection and risk assessment to 
+                secure network design and incident response. 
+            </p>
+            <p style="font-size: 1.2rem; line-height: 1.8; color: #e5e7eb; margin-top: 1rem;">
+                Our mission is to safeguard data while upholding integrity and excellence in everything we do. 
+                By God’s grace, Hexert anticipates cyber risks and keeps our clients one step ahead, ensuring 
+                peace of mind in an increasingly connected world.
+            </p>
+        </div>
+
+        <div class="faith-section">
+            <div class="quote-box">
+                The Lord is my rock, my fortress and my deliverer.
+                <br><span style="font-size: 1rem; font-style: normal; opacity: 0.8;">— Psalm 18:2</span>
+            </div>
+            
+            <div class="grid-3" style="margin-top: 3rem; text-align: left;">
+                <div class="card">
+                    <i class="fas fa-dove" style="font-size: 2rem; color: var(--primary); margin-bottom: 1rem;"></i>
+                    <h3>Wisdom From Above</h3>
+                    <p>We believe technical brilliance is a gift. We pray for discernment to see what others miss in the complex landscape of cyber threats.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-shield-alt" style="font-size: 2rem; color: var(--secondary); margin-bottom: 1rem;"></i>
+                    <h3>Stewardship</h3>
+                    <p>We treat your data as a sacred trust. Our "integrity-first" approach ensures we never cut corners on your security.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-hands-helping" style="font-size: 2rem; color: var(--primary); margin-bottom: 1rem;"></i>
+                    <h3>Peace of Mind</h3>
+                    <p>Security is more than code; it's the confidence to operate freely. We provide the "peace that surpasses understanding" for your digital operations.</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 5rem;">
+            <h2 style="margin-bottom: 1.5rem;">Ready to Secure Your Mission?</h2>
+            <a href="contact.html" class="btn">Connect With Us</a>
         </div>
     </div>
 
     <footer>
-        <p class="god-praise">Powered by Faith & Technology</p>
+        <p>&copy; 2025 Hexert Cyber. All Rights Reserved.</p>
+        <p class="god-praise">Soli Deo Gloria — To God Alone be the Glory</p>
     </footer>
 </body>
 </html>
