@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    
     <header>
         <div class="nav-container">
             <div class="logo">Hexert<span>Cyber</span></div>
@@ -21,13 +22,19 @@
         </div>
     </header>
 
-    <section style="height: 80vh; display: flex; align-items: center; justify-content: center; text-align: center; background: radial-gradient(circle, rgba(112,0,255,0.1) 0%, transparent 70%);">
-        <div>
-            <h1 style="font-size: 4rem; font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem;">
-                Secure Your <span style="background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Digital Future</span>
+    <section id="home-hero">
+        <canvas id="globe-canvas"></canvas>
+
+        <div class="hero-content">
+            <h1 class="animate-up delay-1" style="font-size: 4rem; font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem;">
+                Secure Your <span style="background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Digital World</span>
             </h1>
-            <p style="font-size: 1.2rem; color: #9ca3af; margin-bottom: 2rem;">"For the Lord gives wisdom; from his mouth come knowledge and understanding."</p>
-            <a href="services.html" class="btn">Explore Services</a>
+            <p class="animate-up delay-2" style="font-size: 1.2rem; color: #9ca3af; margin-bottom: 2rem;">
+                "For the Lord gives wisdom; from his mouth come knowledge and understanding."
+            </p>
+            <div class="animate-up delay-3">
+                <a href="services.html" class="btn">Explore Services</a>
+            </div>
         </div>
     </section>
 
@@ -35,5 +42,96 @@
         <p>&copy; 2025 Hexert Cyber. All Rights Reserved.</p>
         <p class="god-praise">In God We Trust | Powered by Faith & Technology</p>
     </footer>
+
+    <script>
+        const canvas = document.getElementById('globe-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let width, height;
+        let particles = [];
+        
+        // Settings
+        const particleCount = 450; // Number of dots
+        const globeRadius = 250;   // Size of the globe
+        const rotationSpeed = 0.002; // Speed of spin
+
+        // Resize Canvas
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        // Create Particles (Dots on a sphere)
+        for (let i = 0; i < particleCount; i++) {
+            // Random spherical coordinates
+            const theta = Math.random() * 2 * Math.PI;
+            const phi = Math.acos((Math.random() * 2) - 1);
+            
+            particles.push({
+                theta, 
+                phi,
+                x: 0, y: 0, z: 0,
+                size: Math.random() * 2 + 1 // Random dot size
+            });
+        }
+
+        // Animation Loop
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            
+            // Center of screen
+            const cx = width / 2;
+            const cy = height / 2;
+
+            particles.forEach(p => {
+                // Rotate the globe (change theta)
+                p.theta += rotationSpeed;
+
+                // Convert spherical to Cartesian (3D x,y,z)
+                p.x = globeRadius * Math.sin(p.phi) * Math.cos(p.theta);
+                p.y = globeRadius * Math.cos(p.phi);
+                p.z = globeRadius * Math.sin(p.phi) * Math.sin(p.theta) + globeRadius;
+
+                // Project 3D to 2D (Perspective)
+                const scale = 300 / (300 + p.z); // Depth factor
+                const x2d = cx + p.x * scale;
+                const y2d = cy + p.y * scale;
+
+                // Draw the particle
+                // Only draw if it's in "front" (z > 0 relative to center somewhat) to simulate depth
+                // or just vary opacity based on depth
+                const alpha = (scale - 0.5) * 1.5; // Fades out dots in back
+                
+                if (alpha > 0) {
+                    ctx.fillStyle = `rgba(0, 229, 255, ${alpha})`; // Cyan color
+                    ctx.beginPath();
+                    ctx.arc(x2d, y2d, p.size * scale, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            });
+
+            // Connect nearby particles with lines (optional "Tech" web effect)
+            // Warning: This is CPU intensive. Uncomment if you want lines.
+            /*
+            particles.forEach((p1, i) => {
+                particles.slice(i + 1).forEach(p2 => {
+                    const dx = p1.x - p2.x;
+                    const dy = p1.y - p2.y;
+                    const dz = p1.z - p2.z;
+                    const dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
+                    if (dist < 40) {
+                         // Draw line code here
+                    }
+                });
+            });
+            */
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
 </body>
 </html>
